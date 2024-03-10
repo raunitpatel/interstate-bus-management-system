@@ -4,17 +4,23 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../resources/global.css'
 import '../resources/auth.css'
-function register() {
+import { useDispatch } from 'react-redux';
+import { HideLoading, ShowLoading } from '../redux/alertsSlice';
 
+function Register() {
+    const dispatch = useDispatch();
     const onFinish = async (values) => {
         try{
+            dispatch(ShowLoading());
             const response = await axios.post("/api/users/register", values);
+            dispatch(HideLoading());
             if(response.data.success){
                 message.success(response.data.message);
             }else{
                 message.error(response.data.message);
             }
         }catch(error){
+            dispatch(HideLoading());
             message.error(error.message);
         }
     };
@@ -44,4 +50,4 @@ function register() {
     )
 }
 
-export default register;
+export default Register;

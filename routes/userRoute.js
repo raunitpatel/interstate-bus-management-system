@@ -3,6 +3,7 @@ const db = require('../config/dbConfig');
 const { createUser } = require('../models/usersModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const authMiddleware = require('../middlewares/authMiddleware');
 require('dotenv').config();
 
 // register new user
@@ -13,7 +14,7 @@ router.post('/register', async (req, res) => {
         const checkUserExistsQuery = 'SELECT * FROM users WHERE email = $1';
         const userExists = await db.query(checkUserExistsQuery, [email]);
         console.log(userExists.rows.length)
-        if (userExists.rows.length > 0) {
+        if (userExists.rows.length > 0) { 
             return res.send({
                 message: 'User already exists',
                 success: false,
@@ -37,7 +38,7 @@ router.post('/register', async (req, res) => {
         });
     }
 });
-
+//login user
 router.post('/login', async (req, res) =>{
     try{
         const userExistsQuery = 'SELECT * FROM users WHERE email = $1';
@@ -73,6 +74,26 @@ router.post('/login', async (req, res) =>{
         });
     }
 });
+
+//get user by id
+router.post('/get-user-by-id',authMiddleware, async (req, res) =>{
+    try{
+        const userQuery = 'SELECT * FROM users WHERE userid = $1';
+        const user = await db.query(userQuery, [req.body.userId]);
+        res.send({
+            message: 'User retrieved successfully',
+            success: true,
+            data: user.rows[0],
+        });
+    } catch(error){
+        res.status(500).send({
+            message: error.message,
+            success: false,
+            data: null,
+        });
+    }
+});
+
 
 
 module.exports = router;
