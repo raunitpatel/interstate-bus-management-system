@@ -19,16 +19,16 @@ input{
 }
 /* text-sizes */
 .text-2xl{
-    font-size: 2rem;
+    font-size: 2rem !important;
 }
 .text-xl{
-    font-size: 1.5rem;
+    font-size: 1.5rem !important;
 }
 .text-lg{
-    font-size: 1.25rem;
+    font-size: 1.25rem !important;
 }
 .text-md{
-    font-size: 1rem;
+    font-size: 1rem !important;
 }
 /* Buttons */
 .primary-btn{
@@ -72,4 +72,8 @@ a{
 i{
     cursor: pointer;
     font-size: 25px !important;
+}
+h1{
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
 }

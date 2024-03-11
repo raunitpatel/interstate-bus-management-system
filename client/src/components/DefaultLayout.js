@@ -55,15 +55,19 @@ function DefaultLayout({ children }) {
         path: '/logout',
         icon: 'ri-logout-box-r-fill'
     }
-    ]
-    const menuToBeRendered = adminMenu;
+]
+    const menuToBeRendered = user?.isadmin ? adminMenu : userMenu;
     const activeRoute =window.location.pathname;
     
     return (
 
         <div className='layout-parent'>
             <div className="sidebar">
-                <div className='d-flex flex-column gap-2'>
+                <div className="sidebar-header">
+                    <h1 className='logo text-xl'>BookBus</h1>
+                    <h1 className='role text-md'>{user?.username} <br/> Role : {user?.isadmin ? "Admin" : "User"}</h1>
+                </div>
+                <div className='d-flex flex-column gap-3 justify-content-start menu'>
                     {menuToBeRendered.map((menu, index) => {
                         return <div className={`${activeRoute===menu.path && 'active-menuItem'} menuItem`}>
                             <i className={menu.icon}></i>
