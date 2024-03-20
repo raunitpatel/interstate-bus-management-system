@@ -16,6 +16,7 @@ input{
 .card{
     border: 1px solid grey;
     box-shadow: 0 0 2px grey;
+    border-radius: 0 !important;
 }
 /* text-sizes */
 .text-2xl{
@@ -29,6 +30,10 @@ input{
 }
 .text-md{
     font-size: 1rem !important;
+}
+.underline{
+    text-decoration: underline !important;
+    cursor: pointer;
 }
 /* Buttons */
 .primary-btn{
@@ -44,6 +49,13 @@ input{
     padding: 0.5rem 1rem;
     border: none;
     cursor: pointer;
+}
+.disabled-btn{
+    background-color: gray;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: not-allowed;
 }
 /* anchor */
 a{
@@ -73,7 +85,7 @@ i{
     cursor: pointer;
     font-size: 25px !important;
 }
-h1{
+h1,p{
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
 }

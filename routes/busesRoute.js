@@ -81,7 +81,7 @@ router.post('/update-bus',authMiddleware, async (req, res) => {
 router.post('/delete-bus',authMiddleware, async (req, res) => {
     try {
         const { busid } = req.body;
-        console.log(req.body);
+        // console.log(req.body);
         const deleteBusQuery = 'DELETE FROM buses WHERE busid = $1';
         const deletedBus = await db.query(deleteBusQuery, [busid]);
         res.send({
@@ -97,5 +97,27 @@ router.post('/delete-bus',authMiddleware, async (req, res) => {
         });
     }
 });
+
+//get bus by id
+router.post('/get-bus-by-id',authMiddleware, async (req, res) => {
+    try {
+        const { busid } = req.body;
+        console.log(req.body);
+        const getBusByIdQuery = 'SELECT * FROM buses WHERE busid = $1';
+        const bus = await db.query(getBusByIdQuery, [busid]);
+        res.send({
+            message: 'Bus fetched successfully',
+            success: true,
+            data: bus.rows,
+        });
+    } catch (error) {
+        res.status(500).send({
+            message: error.message,
+            success: false,
+            data: null,
+        });
+    }
+});
+
 
 module.exports = router;
