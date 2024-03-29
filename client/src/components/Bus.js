@@ -6,7 +6,7 @@ function Bus({ bus }) {
     const navigate =useNavigate();
     return (
         <div className='card p-3'>
-            <h1 className='text-lg'>{bus.busnumber}</h1>
+            <h1 className='text-lg text-primary'>{bus.busnumber}</h1>
             <hr></hr>
             <div className="d-flex justify-content-between">
                 <div>
@@ -22,7 +22,8 @@ function Bus({ bus }) {
                     <p className='text-sm ri-money-rupee-circle-line'>{parseInt(bus.amount)} /-</p>
                 </div>
             </div>
-            <br />
+            {/* <br /> */}
+            <hr />
             <div className="d-flex justify-content-between">
                 <div>
                     <p className='text-sm'>Journey Date : </p>
@@ -40,7 +41,7 @@ function Bus({ bus }) {
             <br />
             <h1 className='text-lg underline' onClick={()=>{
                 navigate(`/book-now/${bus.busid}`);
-            }} style={{color:"#DC321E"}}>Book Now</h1>
+            }} style={{color:"rgb(245,155,157)"}}>Book Now</h1>
         </div>
     )
 }

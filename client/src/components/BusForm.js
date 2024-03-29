@@ -3,6 +3,7 @@ import { Modal, Form, Row, Col, message } from 'antd';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { HideLoading, ShowLoading } from '../redux/alertsSlice';
+import moment from 'moment';
 
 function BusForm({ showBusForm, setShowBusForm, type = 'add', getData, selectedBus,setSelectedBus }) {
     const dispatch = useDispatch();
@@ -47,7 +48,7 @@ function BusForm({ showBusForm, setShowBusForm, type = 'add', getData, selectedB
     return (
         <div>
             <Modal width={800} title = {type === "add" ? "Add Bus" : "Update Bus"} visible={showBusForm} onCancel={() => {setShowBusForm(false);setSelectedBus(null)}} footer={false}>
-                <Form layout='vertical' onFinish={onFinish} initialValues={selectedBus}>
+            <Form layout='vertical' onFinish={onFinish} initialValues={{...selectedBus, dates: selectedBus ? moment(selectedBus.dates).format('YYYY-MM-DD') : null}}>
                     <Row gutter={[10, 10]}>
                         <Col lg={24}>
                             <Form.Item label="Bus Name" name="busnumber">
@@ -93,6 +94,15 @@ function BusForm({ showBusForm, setShowBusForm, type = 'add', getData, selectedB
                         <Col lg={6}>
                             <Form.Item label="Fare" name="amount">
                                 <input type="decimal" />
+                            </Form.Item>
+                        </Col>
+                        <Col lg={12}>
+                            <Form.Item label="Status" name="status">
+                                <select>
+                                    <option value="yet to start">yet to start</option>
+                                    <option value="running">running</option>
+                                    <option value="completed">completed</option>
+                                </select>
                             </Form.Item>
                         </Col>
                     </Row>

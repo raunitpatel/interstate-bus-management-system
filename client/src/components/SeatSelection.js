@@ -48,7 +48,7 @@ function SeatSelection({ selectedSeats, setSelectedSeats, bus }) {
     }
 
     return (
-        <div>
+        <div className='mx-5'>
             <div className="bus-container">
                 <Row gutter={[10, 10]} className="mt-3">
                     {Array.from(Array(capacity).keys()).map((seat) => {

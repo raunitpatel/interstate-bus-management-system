@@ -13,27 +13,27 @@ function AdminBuses() {
   const [buses, setBuses] = useState([]);
   const [selectedBus, setSelectedBus] = useState(null);
 
-  const deletebus = async (id) => {
-    try {
-      dispatch(ShowLoading());
-      const response = await axios.post('/api/buses/delete-bus', { busid: id }, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-      });
-      dispatch(HideLoading());
-      if (response.data.success) {
-        message.success(response.data.message);
-        getBuses();
-      }
-      else {
-        message.error(response.data.message);
-      }
-    } catch (error) {
-      dispatch(HideLoading());
-      message.error(error.message);
-    }
-  };
+  // const deletebus = async (id) => {
+  //   try {
+  //     dispatch(ShowLoading());
+  //     const response = await axios.post('/api/buses/delete-bus', { busid: id }, {
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem('token')}`
+  //       }
+  //     });
+  //     dispatch(HideLoading());
+  //     if (response.data.success) {
+  //       message.success(response.data.message);
+  //       getBuses();
+  //     }
+  //     else {
+  //       message.error(response.data.message);
+  //     }
+  //   } catch (error) {
+  //     dispatch(HideLoading());
+  //     message.error(error.message);
+  //   }
+  // };
   const getBuses = async () => {
     try {
       dispatch(ShowLoading());
@@ -45,6 +45,7 @@ function AdminBuses() {
       dispatch(HideLoading());
       
       if (response.data.success) {
+        message.success(response.data.message);
         setBuses(response.data.data);
       }
       else{
@@ -97,10 +98,10 @@ function AdminBuses() {
             setSelectedBus(record);
             setShowBusForm(true);
           }}></i>
-          <i class="ri-delete-bin-fill" onClick={()=>{
+          {/* <i class="ri-delete-bin-fill" onClick={()=>{
             deletebus(record.busid);
             
-          }}></i>
+          }}></i> */}
         </div>
       ),
     }
@@ -116,7 +117,7 @@ function AdminBuses() {
         <PageTitle title="Buses"/>
         <button className="secondary-btn" onClick={()=>setShowBusForm(true)}>Add Bus</button>
       </div>
-      <Table dataSource={buses} columns={columns} rowKey="busid"/>
+      <Table dataSource={buses} columns={columns} rowKey="busid" pagination={{ position: ['bottomCenter'] }}/>
       {showBusForm && <BusForm showBusForm={showBusForm} setShowBusForm={setShowBusForm} type={selectedBus?"edit":"add"} selectedBus={selectedBus} getData={getBuses} setSelectedBus={setSelectedBus}></BusForm>}
 
     </div>

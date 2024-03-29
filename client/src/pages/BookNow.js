@@ -3,7 +3,7 @@ import axios from 'axios';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import SeatSelection from '../components/SeatSelection';
 import { HideLoading, ShowLoading } from '../redux/alertsSlice';
 import StripeCheckout from 'react-stripe-checkout';
@@ -11,6 +11,7 @@ import StripeCheckout from 'react-stripe-checkout';
 function BookNow() {
     const [selectedSeats, setSelectedSeats] = useState([]);
     const params = useParams();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [bus, setBus] = useState(null);
     const getBus = async () => {
@@ -49,6 +50,7 @@ function BookNow() {
             dispatch(HideLoading());
             if (response.data.success) {
                 message.success(response.data.message);
+                navigate('/bookings');
             }
             else {
                 message.error(response.data.message);
@@ -89,7 +91,7 @@ function BookNow() {
     return (
         <div>
             {bus && (
-                <Row className='mt-3' gutter={20}>
+                <Row className='mt-3' gutter={[30,30]}>
                     <Col lg={12}>
                         <h1 className="text-2xl text-secondary">{bus[0].busnumber}</h1>
                         <h1 className='text-md'>{bus[0].origin}-{bus[0].destination}</h1>

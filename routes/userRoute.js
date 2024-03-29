@@ -94,6 +94,43 @@ router.post('/get-user-by-id',authMiddleware, async (req, res) =>{
     }
 });
 
+//get all users
+router.post('/get-all-users',authMiddleware, async (req, res) =>{
+    try{
+        const usersQuery = 'SELECT * FROM users';
+        const users = await db.query(usersQuery);
+        res.send({
+            message: 'Users retrieved successfully',
+            success: true,
+            data: users.rows,
+        });
+    } catch(error){
+        res.status(500).send({
+            message: error.message,
+            success: false,
+            data: null,
+        });
+    }
+});
 
+//update user permission
+router.post('/update-user-permission',authMiddleware, async (req, res) =>{
+    try{
+        // console.log(req.body);
+        const userQuery = 'UPDATE users SET isadmin = $1 WHERE userid = $2';
+        await db.query(userQuery, [req.body.isadmin, req.body.userid]);
+        res.send({
+            message: 'User permission updated successfully',
+            success: true,
+            data: null,
+        });
+    } catch(error){
+        res.status(500).send({
+            message: error.message,
+            success: false,
+            data: null,
+        });
+    }
+});
 
 module.exports = router;

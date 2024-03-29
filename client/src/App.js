@@ -10,6 +10,8 @@ import AdminHome from './pages/Admin/AdminHome';
 import AdminBuses from './pages/Admin/AdminBuses';
 import AdminUsers from './pages/Admin/AdminUsers';
 import BookNow from './pages/BookNow';
+import Bookings from './pages/Bookings';
+import AdminDashboard from './pages/Admin/AdminDashboard';
 
 function App() {
   const {loading} = useSelector(state=>state.alerts);
@@ -19,12 +21,13 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>}></Route>
-          <Route path="/admin" element={<ProtectedRoute><AdminHome /></ProtectedRoute>}></Route>
           <Route path="/admin/buses" element={<ProtectedRoute><AdminBuses /></ProtectedRoute>}></Route>
           <Route path="/admin/users" element={<ProtectedRoute><AdminUsers /></ProtectedRoute>}></Route>
           <Route path="/book-now/:id" element={<ProtectedRoute><BookNow /></ProtectedRoute>}></Route>
+          <Route path="/admin/dashboard" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>}></Route>
           <Route path="/login" element={<PublicRoute><Login /></PublicRoute>}></Route>
           <Route path ="/register" element ={<PublicRoute><Register/></PublicRoute>}></Route>
+          <Route path="/bookings" element={<ProtectedRoute><Bookings /></ProtectedRoute>}></Route>
         </Routes>
       </BrowserRouter>
     </div>

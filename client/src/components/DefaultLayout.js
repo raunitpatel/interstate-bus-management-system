@@ -20,11 +20,6 @@ function DefaultLayout({ children }) {
         icon: 'ri-file-list-fill'
     },
     {
-        name: 'Profile',
-        path: '/profile',
-        icon: 'ri-user-fill'
-    },
-    {
         name: 'Logout',
         path: '/logout',
         icon: 'ri-logout-box-r-fill'
@@ -32,7 +27,7 @@ function DefaultLayout({ children }) {
 ]
     const adminMenu = [{
         name: 'Home',
-        path: '/admin',
+        path: '/',
         icon: 'ri-home-8-fill'
     },
     {
@@ -47,8 +42,13 @@ function DefaultLayout({ children }) {
     },
     {
         name: 'Bookings',
-        path: '/admin/bookings',
+        path: '/bookings',
         icon: 'ri-file-list-fill'
+    },
+    {
+        name: 'Dashboard',
+        path: '/admin/dashboard',
+        icon: 'ri-dashboard-fill'
     },
     {
         name: 'Logout',
@@ -57,7 +57,10 @@ function DefaultLayout({ children }) {
     }
 ]
     const menuToBeRendered = user?.isadmin ? adminMenu : userMenu;
-    const activeRoute =window.location.pathname;
+    let activeRoute =window.location.pathname;
+    if(window.location.pathname.includes("book-now")){
+        activeRoute = '/';
+    }
     
     return (
 

@@ -6,7 +6,7 @@
     width: 400px;
 }
 /* inputs */
-input{
+input,select{
     height: 2rem;
     border: 2px solid grey;
     width: 100%;
