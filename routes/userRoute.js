@@ -132,5 +132,4 @@ router.post('/update-user-permission',authMiddleware, async (req, res) =>{
         });
     }
 });
-
 module.exports = router;
