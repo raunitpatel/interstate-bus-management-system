@@ -51,6 +51,10 @@ nodemon server.js
 
 3. **Customer Management**:
     - Manage customers block or delete as needed.
+      
+4. **Dashboard**
+    - View analytics related to users, buses and payments.
+      
 ## Contributors
 -   Raunit Patel
 - Rohit Kumar
