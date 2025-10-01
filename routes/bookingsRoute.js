@@ -56,36 +56,30 @@ router.post('/get-booked-seat', authMiddleware, async (req, res) => {
 // make payment
 router.post('/make-payment', authMiddleware, async (req, res) => {
     try {
-        console.log(req.body);
-        const { token, amount } = req.body;
-        const customer = await stripe.customers.create({
-            email: token.email,
-            source: token.id
-        });
-        const payment = await stripe.paymentIntents.create({
-            amount: amount,
-            currency: 'inr',
-            customer: customer.id,
-            receipt_email: token.email
-        }, {
-            idempotencyKey: uuidv4(),
-        });
-        if (payment) {
-            res.status(200).send({
-                message: 'Payment successful',
-                success: true,
-                data: { paymentid: payment.id },
-            });
-        }
-        else {
-            res.send({
-                message: 'Payment failed',
-                success: false,
-                data: null,
-            });
-        }
-    } catch (error) {
+        const { amount } = req.body;
 
+        if (!amount) {
+            return res.status(400).send({
+                message: 'Amount is required',
+                success: false,
+                data: null
+            });
+        }
+
+        // Create a PaymentIntent
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount: amount, // in paise
+            currency: 'inr',
+            payment_method_types: ['card'],
+        });
+
+        res.status(200).send({
+            message: 'Payment initiated',
+            success: true,
+            data: { clientSecret: paymentIntent.client_secret },
+        });
+    } catch (error) {
+        console.log('Stripe PaymentIntent error:', error);
         res.status(500).send({
             message: error.message,
             success: false,
