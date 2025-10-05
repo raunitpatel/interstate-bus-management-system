@@ -76,7 +76,7 @@ router.post('/make-payment', authMiddleware, async (req, res) => {
         res.status(200).send({
             message: 'Payment initiated',
             success: true,
-            data: { clientSecret: paymentIntent.client_secret },
+            data: { clientSecret: paymentIntent.client_secret, paymentid: paymentIntent.id },
         });
     } catch (error) {
         console.log('Stripe PaymentIntent error:', error);
